@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kamil Youbi – Étudiant en BTS SIO, à la recherche d'une alternance</title>
+    <meta name="description" content="Portfolio de Kamil Youbi, étudiant en BTS SIO option SLAM, à la recherche d'une alternance en informatique.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================
+           1. LES COULEURS (changez-les ici, tout le site change)
+           ========================================================== */
+        :root {
+            --ink: #0F1B33;        /* texte principal */
+            --muted: #5B6780;      /* texte discret */
+            --bg: #F6F8FC;        /* fond de la page */
+            --white: #FFFFFF;
+            --line: #E1E7F2;       /* traits fins */
+            --blue-deep: #0B2A6F;  /* bleu profond */
+            --blue: #2563EB;       /* bleu vif */
+            --blue-text: #1D4ED8;  /* bleu pour les petits textes */
+            --sky: #38BDF8;        /* bleu ciel */
+            /* Le dégradé du site */
+            --gradient: linear-gradient(135deg, #0B2A6F 0%, #2563EB 55%, #38BDF8 100%);
+        }
+
+        /* ==========================================================
+           2. LES BASES
+           ========================================================== */
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+        body {
+            margin: 0; color: var(--ink);
+            background-color: var(--bg);
+            /* Dégradé bleu sur toute la hauteur de la page */
+            background-image: linear-gradient(180deg, #E3EDFF 0%, #D8E7FF 25%, #E2EDFF 50%, #D6E6FF 75%, #DCE9FF 100%);
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            font-size: 1.0625rem; line-height: 1.7;
+        }
+        h1, h2, h3 { margin: 0; line-height: 1.1; letter-spacing: -0.03em; font-weight: 800; }
+        p { margin: 0; }
+        a { color: inherit; }
+        :focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; }
+        .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+        /* ==========================================================
+           3. LE MENU
+           ========================================================== */
+        .site-nav { position: sticky; top: 0; z-index: 20; background: rgba(228, 238, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+        .nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px 24px; padding: 14px 0; }
+        .brand { font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em; text-decoration: none; }
+        .nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 2px 8px; margin: 0; padding: 0; font-size: 0.95rem; font-weight: 500; }
+        .nav ul a { display: block; text-decoration: none; color: var(--muted); padding: 6px 14px; border-radius: 999px; transition: background 0.15s, color 0.15s; }
+        .nav ul a:hover { background: var(--white); color: var(--blue-text); }
+        .nav ul a.nav-cv { display: flex; align-items: center; gap: 7px; background: var(--gradient); color: var(--white); font-weight: 700; margin-left: 6px; }
+        .nav ul a.nav-cv:hover { background: var(--gradient); color: var(--white); box-shadow: 0 8px 18px -8px rgba(37, 99, 235, 0.7); }
+
+        /* ==========================================================
+           4. LE HAUT DE PAGE
+           ========================================================== */
+        .hero { padding: 24px 0 0; }
+        .hero-card {
+            position: relative; overflow: hidden; border-radius: 32px; color: var(--white);
+            background: var(--gradient); padding: 64px 40px;
+            display: grid; gap: 40px; align-items: center;
+        }
+        @media (min-width: 860px) { .hero-card { grid-template-columns: 1fr auto; padding: 88px 72px; gap: 56px; } }
+        @media (max-width: 859px) { .hero-card { padding: 44px 28px; } .contact-card { padding: 44px 28px; } }
+        .hero-card::before, .hero-card::after { content: ""; position: absolute; border-radius: 50%; pointer-events: none; }
+        .hero-card::before { width: 420px; height: 420px; right: -120px; top: -160px; background: rgba(255, 255, 255, 0.10); }
+        .hero-card::after { width: 300px; height: 300px; right: 120px; bottom: -190px; background: rgba(255, 255, 255, 0.08); }
+        .hero-card > * { position: relative; z-index: 1; }
+
+        .badge { white-space: nowrap; display: inline-flex; align-items: center; gap: 10px; padding: 7px 16px; border-radius: 999px; background: rgba(255, 255, 255, 0.16); font-size: 0.92rem; font-weight: 600; margin-bottom: 26px; }
+        .badge i { width: 8px; height: 8px; border-radius: 50%; background: #7CF2B5; display: block; }
+        .hero h1 { font-size: clamp(2.8rem, 8vw, 5.2rem); }
+        .role { font-size: clamp(1.1rem, 2.2vw, 1.35rem); font-weight: 600; margin: 16px 0 14px; color: #E4EDFF; }
+        .tagline { max-width: 48ch; color: #D3E1FF; margin-bottom: 32px; }
+
+        .btn-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+        .btn {
+            display: inline-block; padding: 13px 26px; border-radius: 999px; font-weight: 600; font-size: 0.97rem;
+            text-decoration: none; border: 1.5px solid transparent;
+            transition: transform 0.15s, background 0.15s, color 0.15s, box-shadow 0.15s;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-light { background: var(--white); color: var(--blue-deep); }
+        .btn-light:hover { box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.45); }
+        .btn-ghost { border-color: rgba(255, 255, 255, 0.55); color: var(--white); }
+        /* Le bouton CV : plus grand, avec une icône et un halo, pour qu'il ressorte */
+        .btn-cv { display: inline-flex; align-items: center; gap: 12px; padding: 12px 30px 12px 12px; border-radius: 999px; background: var(--white); color: var(--blue-deep); font-weight: 800; font-size: 1.08rem; text-decoration: none; box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.25), 0 18px 34px -14px rgba(2, 12, 48, 0.7); transition: transform 0.15s, box-shadow 0.15s; }
+        .btn-cv:hover { transform: translateY(-3px); box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.32), 0 22px 38px -14px rgba(2, 12, 48, 0.75); }
+        .btn-cv .ico { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--gradient); color: var(--white); }
+        .btn-ghost:hover { background: rgba(255, 255, 255, 0.14); }
+
+        /* Photo : portrait aux angles arrondis, avec une forme en verre derrière */
+        .photo { position: relative; justify-self: start; width: 200px; }
+        @media (min-width: 860px) { .photo { justify-self: center; } }
+        .photo::before { content: ""; position: absolute; inset: 16px -16px -16px 16px; border-radius: 30px; background: rgba(255, 255, 255, 0.16); border: 1.5px solid rgba(255, 255, 255, 0.4); }
+        .photo img { position: relative; display: block; width: 200px; height: 266px; border-radius: 30px; object-fit: cover; object-position: 50% 12%; box-shadow: 0 26px 50px -22px rgba(4, 18, 60, 0.65); }
+
+        /* ==========================================================
+           5. LES SECTIONS
+           ========================================================== */
+        .section { padding: 96px 0 0; }
+        .section-tint { padding-bottom: 96px; background: linear-gradient(180deg, rgba(120, 170, 255, 0) 0%, rgba(120, 170, 255, 0.18) 25%, rgba(120, 170, 255, 0.18) 75%, rgba(120, 170, 255, 0) 100%); }
+        #apropos { background: radial-gradient(620px 380px at 92% 40%, rgba(56, 189, 248, 0.28), transparent 70%); }
+        #competences { background: radial-gradient(680px 400px at 6% 30%, rgba(37, 99, 235, 0.16), transparent 70%), radial-gradient(520px 320px at 96% 90%, rgba(56, 189, 248, 0.20), transparent 70%); }
+        .section-head { margin-bottom: 40px; }
+        .section-title { font-size: clamp(2rem, 4.5vw, 2.9rem); }
+        .section-title::after { content: ""; display: block; width: 52px; height: 5px; border-radius: 3px; background: var(--gradient); margin-top: 16px; }
+        .section-intro { color: var(--muted); max-width: 56ch; margin-top: 16px; }
+
+        /* À propos */
+        .about-grid { display: grid; gap: 40px; }
+        @media (min-width: 860px) { .about-grid { grid-template-columns: 1.3fr 0.7fr; gap: 72px; } }
+        .about-text { font-size: 1.2rem; max-width: 50ch; }
+        .about-text + .about-text { margin-top: 16px; color: var(--muted); font-size: 1.08rem; }
+        .facts { margin: 0; background: var(--white); border: 1px solid var(--line); border-radius: 20px; padding: 8px 24px; align-self: start; }
+        .facts div { padding: 14px 0; border-bottom: 1px solid var(--line); }
+        .facts div:last-child { border-bottom: 0; }
+        .facts dt { font-size: 0.85rem; color: var(--muted); }
+        .facts dd { margin: 2px 0 0; font-weight: 600; }
+
+        /* Projets */
+        .project { display: grid; gap: 14px 48px; padding: 36px 0; border-top: 1px solid var(--line); }
+        .project:last-child { border-bottom: 1px solid var(--line); }
+        @media (min-width: 860px) { .project { grid-template-columns: 0.8fr 1.6fr; } }
+        .project h3 { font-size: clamp(1.7rem, 3vw, 2.2rem); margin-bottom: 12px; }
+        .chip { display: inline-block; font-size: 0.85rem; font-weight: 700; padding: 3px 12px; border-radius: 999px; }
+        .chip.run { background: #E0EBFF; color: var(--blue-text); }
+        .chip.done { background: #DDF5E8; color: #16794A; }
+        .chip.soon { background: #EBEEF5; color: var(--muted); }
+        .when { margin-left: 8px; font-size: 0.9rem; color: var(--muted); }
+        .project .project-body > * + * { margin-top: 20px; }
+        .project .project-body > .feat { margin-top: 16px; }
+        .project .project-body > .techs { margin-top: 26px; }
+        .mine { background: #EEF4FF; border-radius: 12px; padding: 10px 16px; font-weight: 600; color: var(--blue-deep); }
+        .feat { margin: 0; padding-left: 1.2rem; }
+        .feat li { padding: 1px 0; }
+        .feat li::marker { color: var(--blue); }
+        .techs { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; }
+        .techs li { font-size: 0.88rem; font-weight: 500; padding: 4px 14px; border-radius: 999px; background: var(--white); border: 1px solid var(--line); }
+        .link { display: inline-block; font-weight: 700; color: var(--blue-text); text-decoration: none; border-bottom: 2px solid var(--sky); }
+        .link:hover { color: var(--blue-deep); }
+
+        /* Compétences */
+        .skills { margin: 0; }
+        .skills div { display: grid; gap: 10px 40px; padding: 22px 0; border-top: 1px solid var(--line); }
+        .skills div:last-child { border-bottom: 1px solid var(--line); }
+        @media (min-width: 700px) { .skills div { grid-template-columns: 260px 1fr; align-items: center; } }
+        .skills dt { font-weight: 700; font-size: 1.15rem; letter-spacing: -0.01em; }
+        .skills dd { margin: 0; }
+
+        /* Parcours */
+        .path { display: grid; gap: 56px; }
+        @media (min-width: 900px) { .path { grid-template-columns: 1fr 1fr; gap: 72px; } }
+        .sub-title { font-size: 1.4rem; margin-bottom: 28px; }
+        .steps { list-style: none; margin: 0; padding: 0 0 0 30px; position: relative; }
+        .steps::before { content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(to bottom, var(--blue-deep), var(--sky)); border-radius: 1px; }
+        .steps li { position: relative; padding-bottom: 30px; }
+        .steps li:last-child { padding-bottom: 0; }
+        .steps li::before { content: ""; position: absolute; left: -30px; top: 7px; width: 14px; height: 14px; border-radius: 50%; background: var(--white); border: 3px solid var(--blue); }
+        .steps time { font-weight: 600; font-size: 0.9rem; color: var(--blue-text); }
+        .steps h4 { margin: 2px 0 4px; font-size: 1.08rem; line-height: 1.4; }
+        .steps .where { font-weight: 500; color: var(--muted); }
+        .steps p { max-width: 52ch; color: var(--muted); }
+
+        /* Contact */
+        .contact-wrap { padding: 96px 0 24px; background: linear-gradient(180deg, rgba(120, 170, 255, 0) 0%, rgba(120, 170, 255, 0.16) 100%); }
+        .contact-card { position: relative; overflow: hidden; border-radius: 32px; color: var(--white); background: var(--gradient); padding: 64px 40px; }
+        @media (min-width: 860px) { .contact-card { padding: 88px 72px; } }
+        .contact-card::before { content: ""; position: absolute; width: 380px; height: 380px; border-radius: 50%; right: -110px; top: -150px; background: rgba(255, 255, 255, 0.10); pointer-events: none; }
+        .contact-card > * { position: relative; }
+        .contact-card h2 { font-size: clamp(2.2rem, 6vw, 3.8rem); margin-bottom: 18px; }
+        .contact-card p { max-width: 46ch; color: #D3E1FF; margin-bottom: 14px; font-size: 1.1rem; }
+        .contact-card .mail { display: block; margin-bottom: 30px; font-weight: 700; font-size: 1.15rem; }
+
+        footer { padding: 28px 0 40px; font-size: 0.9rem; color: var(--muted); }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; scroll-behavior: auto !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== MENU ==================== -->
+    <header class="site-nav">
+        <div class="wrap">
+            <nav class="nav" aria-label="Menu principal">
+                <a class="brand" href="#accueil">Kamil Youbi</a>
+                <ul>
+                    <li><a href="#apropos">À propos</a></li>
+                    <li><a href="#projets">Projets</a></li>
+                    <li><a href="#competences">Compétences</a></li>
+                    <li><a href="#parcours">Parcours</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a class="nav-cv" href="cv.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>CV</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ==================== ACCUEIL ==================== -->
+        <section class="hero" id="accueil">
+            <div class="wrap">
+                <div class="hero-card">
+                    <div>
+                        <p class="badge"><i></i> En recherche d'alternance</p>
+                        <h1>Kamil Youbi</h1>
+                        <p class="role">Étudiant en BTS SIO, option SLAM</p>
+
+                        <!-- ✏️ À MODIFIER : votre phrase de présentation -->
+                        <p class="tagline">Je développe des sites web et des applications. Je recherche une alternance pour gagner de l'expérience, apprendre auprès de professionnels et participer à de vrais projets.</p>
+
+                        <div class="btn-row">
+                            <a class="btn-cv" href="cv.pdf" target="_blank" rel="noopener"><span class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg></span>Voir mon CV</a>
+                            <a class="btn btn-ghost" href="#projets">Voir mes projets</a>
+                            <a class="btn btn-ghost" href="#contact">Me contacter</a>
+                        </div>
+                    </div>
+
+                    <!-- Votre photo (déjà dans le fichier) -->
+                    <div class="photo">
+                        <img src="data:image/jpeg;base64,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" alt="Portrait de Kamil Youbi" width="200" height="266">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== À PROPOS ==================== -->
+        <section class="section" id="apropos">
+            <div class="wrap about-grid">
+                <div>
+                    <div class="section-head"><h2 class="section-title">À propos</h2></div>
+                    <!-- ✏️ À MODIFIER : réécrivez ces textes avec vos mots -->
+                    <p class="about-text">Mon parcours est un peu différent : j'ai commencé par le commerce et la vente, puis j'ai choisi l'informatique.</p>
+                    <p class="about-text">De mes expériences dans l'immobilier et l'animation, j'ai gardé l'écoute et le sens du service. Aujourd'hui, je construis des sites et des applications utiles à ceux qui les utilisent.</p>
+                    <!-- ✏️ À MODIFIER : expliquez avec vos mots comment vous utilisez l'IA -->
+                    <p class="about-text">J'utilise l'intelligence artificielle comme un outil au quotidien. Elle m'aide à avancer, mais je ne lui confie pas tout : le travail reste le mien.</p>
+                </div>
+
+                <dl class="facts" aria-label="Informations pratiques">
+                    <div><dt>Formation</dt><dd>BTS SIO option SLAM, 2025 – 2027</dd></div>
+                    <div><dt>Établissement</dt><dd>Lycée Robert Schuman, Dugny</dd></div>
+                    <div><dt>Je recherche</dt><dd>Une alternance en informatique</dd></div>
+                    <div><dt>Permis</dt><dd>Permis B</dd></div>
+                    <div><dt>Centres d'intérêt</dt><dd>Sport, voyage, lecture</dd></div>
+                </dl>
+            </div>
+        </section>
+
+        <!-- ==================== PROJETS ==================== -->
+        <section class="section section-tint" id="projets">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2 class="section-title">Projets</h2>
+                    <p class="section-intro">Les projets réalisés en équipe pendant mon BTS.</p>
+                </div>
+
+                <!-- Projet 1 : HSP -->
+                <article class="project">
+                    <div>
+                        <h3>HSP</h3>
+                        <span class="chip run">En cours</span><span class="when">depuis septembre 2026</span>
+                    </div>
+                    <div class="project-body">
+                        <p>Un site de mise en relation entre les médecins d'un groupe d'hôpitaux, des étudiants en médecine et des entreprises partenaires. Projet d'équipe réalisé à partir d'un cahier des charges.</p>
+                        <ul class="feat">
+                            <li>Inscription validée par un gestionnaire</li>
+                            <li>Offres de stage et d'emploi avec candidature</li>
+                            <li>Événements avec inscription</li>
+                            <li>Forum et annuaire des médecins</li>
+                        </ul>
+                        <ul class="techs"><li>PHP</li><li>HTML</li><li>Bootstrap</li><li>SQL</li><li>Git</li></ul>
+                    </div>
+                </article>
+
+                <!-- Projet 2 : Site Cinéma -->
+                <article class="project">
+                    <div>
+                        <h3>Site Cinéma</h3>
+                        <span class="chip done">Terminé</span><span class="when">avril 2026</span>
+                    </div>
+                    <div class="project-body">
+                        <p>Un site web qui présente des films, avec une interface dynamique et une base de données. Projet réalisé en équipe.</p>
+                        <p class="mine">Ma part : la partie administrateur du site.</p>
+                        <ul class="techs"><li>HTML</li><li>CSS</li><li>PHP</li><li>MySQL</li><li>Git</li></ul>
+                        <a class="link" href="https://github.com/AmineBess254/projet-cinema" target="_blank" rel="noopener">Voir le code sur GitHub</a>
+                    </div>
+                </article>
+
+                <!-- Projet 3 : Application JavaFX -->
+                <article class="project">
+                    <div>
+                        <h3>Application JavaFX</h3>
+                        <span class="chip soon">À venir</span><span class="when">décembre 2026</span>
+                    </div>
+                    <div class="project-body">
+                        <!-- ✏️ À MODIFIER : expliquez ce que fera votre application -->
+                        <p>Une application de bureau en Java avec une interface JavaFX, construite sur le modèle MVC.</p>
+                        <ul class="techs"><li>Java</li><li>JavaFX</li><li>MVC</li><li>MySQL</li></ul>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ==================== COMPÉTENCES ==================== -->
+        <section class="section" id="competences">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2 class="section-title">Compétences</h2>
+                    <p class="section-intro">Ce que j'utilise en cours, en stage et dans mes projets.</p>
+                </div>
+
+                <dl class="skills">
+                    <div><dt>Sites web</dt><dd><ul class="techs"><li>HTML et CSS</li><li>JavaScript</li><li>jQuery</li><li>Bootstrap</li><li>PHP</li><li>WordPress</li></ul></dd></div>
+                    <div><dt>Applications</dt><dd><ul class="techs"><li>Java</li><li>JavaFX</li><li>Python</li><li>Algorithmique</li></ul></dd></div>
+                    <div><dt>Bases de données</dt><dd><ul class="techs"><li>SQL</li><li>MySQL</li><li>JDBC</li></ul></dd></div>
+                    <div><dt>Réseaux et systèmes</dt><dd><ul class="techs"><li>Debian</li><li>Apache</li><li>Windows (droits NTFS)</li><li>Hyper-V</li><li>VirtualBox</li></ul></dd></div>
+                    <div><dt>Outils</dt><dd><ul class="techs"><li>Git</li><li>Suite JetBrains</li><li>WAMP</li><li>Suite Office</li><li>Outils d'IA</li></ul></dd></div>
+                </dl>
+            </div>
+        </section>
+
+        <!-- ==================== PARCOURS ==================== -->
+        <section class="section section-tint" id="parcours">
+            <div class="wrap">
+                <div class="section-head"><h2 class="section-title">Parcours</h2></div>
+
+                <div class="path">
+                    <div>
+                        <h3 class="sub-title">Expériences</h3>
+                        <ol class="steps">
+                            <li>
+                                <time>Août 2026</time>
+                                <h4>Animateur (adjoint territorial d'animation) <span class="where">· Mairie de Mitry-Mory</span></h4>
+                                <p>Encadrement d'enfants en accueil de loisirs, organisation et animation d'activités.</p>
+                            </li>
+                            <li>
+                                <time>19 mai – 19 juin 2026</time>
+                                <h4>Stagiaire en réseaux informatiques <span class="where">· Centre des Lumières</span></h4>
+                                <p>Installation et configuration d'un Raspberry Pi, réorganisation d'une salle informatique, réalisation d'un projet en Python.</p>
+                            </li>
+                            <li>
+                                <time>Juin et novembre 2024</time>
+                                <h4>Agent immobilier <span class="where">· Orpi Cogestion (Mitry-Mory) et Century 21 (Villeparisis)</span></h4>
+                                <p>Accueil des clients, prospection, phoning, visites et estimation de biens, remplissage de mandats.</p>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h3 class="sub-title">Formation</h3>
+                        <ol class="steps">
+                            <li>
+                                <time>2025 – 2027</time>
+                                <h4>BTS SIO, option SLAM</h4>
+                                <p>Lycée technique Robert Schuman, Dugny. Développement web, applications, bases de données.</p>
+                            </li>
+                            <li>
+                                <time>2025</time>
+                                <h4>Bac professionnel Métiers du commerce et de la vente</h4>
+                                <p>Mention assez bien. Protectorat Saint-Joseph, Aulnay-sous-Bois.</p>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== CONTACT ==================== -->
+        <section class="contact-wrap" id="contact">
+            <div class="wrap">
+                <div class="contact-card">
+                    <h2>Travaillons ensemble.</h2>
+                    <p>Vous proposez une alternance, un stage, ou vous souhaitez en savoir plus sur mon parcours ? Écrivez-moi, je vous répondrai rapidement.</p>
+                    <a class="mail" href="mailto:kamilyoubi27@gmail.com">kamilyoubi27@gmail.com</a>
+                    <div class="btn-row">
+                        <a class="btn btn-light" href="mailto:kamilyoubi27@gmail.com">Envoyer un e-mail</a>
+                        <a class="btn btn-ghost" href="https://www.linkedin.com/in/kamil-youbi-aba7b834b/" target="_blank" rel="noopener">LinkedIn</a>
+                        <a class="btn btn-ghost" href="https://github.com/kamil0461" target="_blank" rel="noopener">GitHub</a>
+                        <!-- ✏️ Mettez votre CV dans le même dossier sous le nom cv.pdf -->
+                        <a class="btn btn-ghost" href="cv.pdf" download>Télécharger mon CV</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="wrap">© 2026 Kamil Youbi</div>
+    </footer>
+
+</body>
+</html>
